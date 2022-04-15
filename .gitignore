@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Additional
+output/
+datasets/
+saved_models/
+/demo.py
