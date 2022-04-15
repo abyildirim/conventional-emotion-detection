@@ -44,7 +44,7 @@ The downloaded datasets are saved to the ***datasets*** directory.
 ## Training
 The trained models are saved to the ***saved_models*** directory by default.
 
-4. Preparing the dataset
+4. Training the detection model **(For now, it is only the facial landmark detection model)**
 
     ```
     cd ..
@@ -61,7 +61,7 @@ The trained models are saved to the ***saved_models*** directory by default.
 ## Evaluating
 The evaluation results of the models are saved to the ***output*** directory  by default.
 
-4. Preparing the dataset
+4. Evaluating the trained detection model **(For now, it is only the facial landmark detection model)**
 
     ```
     python eval.py
