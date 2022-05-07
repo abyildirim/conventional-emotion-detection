@@ -28,6 +28,8 @@ def main():
     parser.add_argument('--num_initial_samples', type=int, default=10, help='Number of landmark points sets created initially for each image in the training phase.')
     parser.add_argument('--sift_patch_size', type=int, default=32, help='Patch size used to extract the sift descriptors of the landmarks.')
     parser.add_argument('--model_save_dir', type=str, default="./saved_models", help='Where the trained model will be saved.')
+    parser.add_argument('--pca_explained_variance', type=float, default=0.98, help='Explained variance of PCA components of the SIFT descriptors used for training the regressor models.')
+    
     args = parser.parse_args()
 
     train_data_dir = os.path.join(args.dataset_dir, "train")
@@ -39,7 +41,7 @@ def main():
 
     print("SDM regressor training is started.")
     num_landmark_coordinates = len(df_landmarks.columns)
-    sdm_regressor = SDMRegressor(args.num_regressors, args.num_initial_samples, num_landmark_coordinates, args.sift_patch_size)
+    sdm_regressor = SDMRegressor(args.num_regressors, args.num_initial_samples, num_landmark_coordinates, args.sift_patch_size, args.pca_explained_variance)
     sdm_regressor.fit(images, df_landmarks)
     os.makedirs(args.model_save_dir, exist_ok=True)
     model_save_path = os.path.join(args.model_save_dir, f"sdm_landmark_regressor_{args.dataset}_r{args.num_regressors}_p{args.sift_patch_size}_s{args.num_initial_samples}.model")

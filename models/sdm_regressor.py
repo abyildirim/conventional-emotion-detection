@@ -2,14 +2,16 @@ import cv2
 from sklearn.linear_model import LinearRegression
 import numpy as np
 from tqdm import tqdm
+from sklearn.decomposition import PCA
 
 class SDMRegressor:
-    def __init__(self, num_regressors, num_initial_samples, num_landmark_coordinates, sift_patch_size):
+    def __init__(self, num_regressors, num_initial_samples, num_landmark_coordinates, sift_patch_size, pca_explained_variance):
         self.num_regressors = num_regressors
         self.num_initial_samples = num_initial_samples
         # num_landmark_coordinates = 2*num_landmarks (x and y coordinates for each point)
         self.num_landmark_coordinates = num_landmark_coordinates
         self.cascaded_regressors = [[LinearRegression() for _ in range(num_regressors)] for _ in range(self.num_landmark_coordinates)]
+        self.pca_list = [PCA(n_components=pca_explained_variance) for _ in range(num_regressors)]
         self.sift_patch_size = sift_patch_size
 
     # Monte Carlo sampling
@@ -67,14 +69,16 @@ class SDMRegressor:
         images_current_landmarks_sets = self.get_initial_images_landmarks_sets(df_landmarks)
         for regressor_id in range(self.num_regressors):
             print("Extracting the sift descriptors of the current landmark points on each image")
+            pca = self.pca_list[regressor_id]
             images_sift_descriptors = self.extract_images_sift_descriptors(images, images_current_landmarks_sets)
+            num_images, num_samples, num_landmark_coordinates, descriptor_size = images_sift_descriptors.shape
+            descriptors = images_sift_descriptors.reshape(num_images*num_samples,descriptor_size*self.num_landmark_coordinates)
+            pca.fit(descriptors)
+            descriptors = pca.transform(descriptors) # dimensionality reduction using pca
             images_target_landmarks_sets = self.get_target_landmarks_set(df_landmarks)
             images_delta_landmarks_sets = images_target_landmarks_sets - images_current_landmarks_sets
             print(f"Training the regressor {regressor_id+1} using the extracted descriptors")
             for landmark_coordinate_id in tqdm(range(self.num_landmark_coordinates),desc=f'Training Regressor {regressor_id+1}',total=self.num_landmark_coordinates):
-                num_images, num_samples, num_landmark_coordinates, descriptor_size = images_sift_descriptors.shape
-                descriptors = images_sift_descriptors[:,:,landmark_coordinate_id,:].reshape(num_images*num_samples,descriptor_size)
-                # descriptors = images_sift_descriptors[:,:,:,:].reshape(num_images*num_samples,descriptor_size*self.num_landmark_coordinates) ## TBD ##
                 target_delta_landmark_coordinates = images_delta_landmarks_sets[:,:,landmark_coordinate_id].flatten()
                 self.cascaded_regressors[landmark_coordinate_id][regressor_id].fit(descriptors, target_delta_landmark_coordinates)
                 # predicting the delta values by using the trained regressor
@@ -103,9 +107,11 @@ class SDMRegressor:
     def predict(self, image):
         current_landmarks = self.mean_landmarks.flatten()
         for regressor in range(self.num_regressors):
+            pca = self.pca_list[regressor]
             descriptors = self.extract_sift_descriptors(image,current_landmarks)
+            descriptors = [descriptors.flatten()]
+            descriptors = pca.transform(descriptors) # dimensionality reduction using pca
             for landmark_coordinate_id in range(self.num_landmark_coordinates):
-                delta_coordinate = self.cascaded_regressors[landmark_coordinate_id][regressor].predict([descriptors[landmark_coordinate_id]])[0]
-                # delta_coordinate = self.cascaded_regressors[landmark_coordinate_id][regressor].predict([descriptors.flatten()])[0] ## TBD ##
+                delta_coordinate = self.cascaded_regressors[landmark_coordinate_id][regressor].predict(descriptors)[0]
                 current_landmarks[landmark_coordinate_id] += int(delta_coordinate)
         return current_landmarks.reshape(-1,2)
