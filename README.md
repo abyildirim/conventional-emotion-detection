@@ -57,6 +57,7 @@ The trained models are saved to the ***saved_models*** directory by default.
     * *--num_initial_samples:* Number of landmark points sets created initially for each image in the training phase.
     * *--sift_patch_size:* Patch size used to extract the sift descriptors of the landmarks.
     * *--model_save_dir:* Where the trained model will be saved.
+    * *--pca_explained_variance:* Explained variance of PCA components of the SIFT descriptors used for training the regressor models.
 
 ## Evaluating
 The evaluation results of the models are saved to the ***output*** directory  by default.
