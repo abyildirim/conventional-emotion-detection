@@ -73,8 +73,10 @@ class SDMRegressor:
             images_sift_descriptors = self.extract_images_sift_descriptors(images, images_current_landmarks_sets)
             num_images, num_samples, num_landmark_coordinates, descriptor_size = images_sift_descriptors.shape
             descriptors = images_sift_descriptors.reshape(num_images*num_samples,descriptor_size*self.num_landmark_coordinates)
+            print("Applying PCA on the SIFT descriptors!")
             pca.fit(descriptors)
             descriptors = pca.transform(descriptors) # dimensionality reduction using pca
+            print("PCA is applied on the SIFT descriptors!")
             images_target_landmarks_sets = self.get_target_landmarks_set(df_landmarks)
             images_delta_landmarks_sets = images_target_landmarks_sets - images_current_landmarks_sets
             print(f"Training the regressor {regressor_id+1} using the extracted descriptors")

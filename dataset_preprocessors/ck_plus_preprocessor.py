@@ -65,11 +65,13 @@ def read_emotion(image_sequence_id_path):
         emotion_file.close()
     return emotion
 
-def read_landmarks(landmarks_folder_path):
+def read_landmarks(landmarks_folder_path, is_peak):
+    file_index = 0
+    if is_peak:
+        file_index = -1
     landmarks_file_list = os.listdir(landmarks_folder_path)
-    if len(landmarks_file_list) == 0:
-        raise Exception("Landmarks could not be found: {}".format(landmarks_folder_path))
-    landmarks_file_path = os.path.join(landmarks_folder_path, landmarks_file_list[0])
+    landmarks_file_list.sort()
+    landmarks_file_path = os.path.join(landmarks_folder_path, landmarks_file_list[file_index])
     landmarks_file = open(landmarks_file_path, "r")
     landmarks = []
     for landmark_line in landmarks_file:
@@ -85,8 +87,15 @@ def read_peak_image(images_folder_path):
     peak_image = Image.open(peak_image_path).convert("RGB")
     return peak_image
 
-def read_data(training_data_path):
-    print("# Reading the CK+ dataset!")
+def read_neutral_image(images_folder_path):
+    images_list = os.listdir(images_folder_path)
+    images_list.sort()
+    neutral_image_path = os.path.join(images_folder_path, images_list[0])
+    neutral_image = Image.open(neutral_image_path).convert("RGB")
+    return neutral_image
+
+def read_data(training_data_path, setup_number):
+    print(f"# Reading the CK+ dataset! (Setup {setup_number})")
     emotions_path = os.path.join(training_data_path, "emotions")
     landmarks_path = os.path.join(training_data_path, "landmarks")
     images_path = os.path.join(training_data_path, "images")
@@ -101,11 +110,20 @@ def read_data(training_data_path):
             if emotion is not None:
                 landmarks_folder_path = os.path.join(landmarks_path, subject, image_sequence_id)
                 images_folder_path = os.path.join(images_path, subject, image_sequence_id) 
-                emotion_list.append(emotion)
-                landmarks = read_landmarks(landmarks_folder_path)
-                landmarks_list.append(landmarks)
+                if setup_number == 2:
+                    neutral_image = read_neutral_image(images_folder_path)
+                    image_list.append(neutral_image)
+                    emotion_list.append(emotions_dict[0])
+                    landmarks = read_landmarks(landmarks_folder_path, is_peak=False)
+                    landmarks_list.append(landmarks)
+                if setup_number == 2 and emotion == emotions_dict[2]:
+                    continue
                 peak_image = read_peak_image(images_folder_path)
                 image_list.append(peak_image)
+                emotion_list.append(emotion)
+                landmarks = read_landmarks(landmarks_folder_path, is_peak=True)
+                landmarks_list.append(landmarks)
+
     return image_list, landmarks_list, emotion_list
 
 def split_data(image_list, landmarks_list, emotion_list, test_ratio=0.2):
@@ -127,11 +145,11 @@ def split_data(image_list, landmarks_list, emotion_list, test_ratio=0.2):
     }
     return train_dataset, test_dataset
 
-def process_and_save_data(dataset, data_type):
+def process_and_save_data(dataset, data_type, setup_number):
     print("# Preprocessing operations on the", data_type, "data is started!")
     image_list, landmarks_list, emotion_list = dataset["images"], dataset["landmarks"], dataset["emotions"]
     zfill_length = len(str(len(dataset)))
-    dataset_dir = os.path.join(os.path.dirname( __file__ ), "..", "datasets", "ck_plus")
+    dataset_dir = os.path.join(os.path.dirname( __file__ ), "..", "datasets", "ck_plus", f"setup_{setup_number}")
     processed_data_dir = os.path.join(dataset_dir, "processed", data_type)
     image_processed_dir = os.path.join(processed_data_dir, "images")
     os.makedirs(image_processed_dir, exist_ok=True)
@@ -186,10 +204,15 @@ def process_and_save_data(dataset, data_type):
 def main():
     root_path = os.path.join(os.path.dirname( __file__ ), "..")
     training_data_path = os.path.join(root_path, "datasets", "ck_plus", "raw")
-    image_list, landmarks_list, emotion_list = read_data(training_data_path)
+    image_list, landmarks_list, emotion_list = read_data(training_data_path, setup_number=1)
     train_dataset, test_dataset = split_data(image_list, landmarks_list, emotion_list)
-    process_and_save_data(train_dataset, "train")
-    process_and_save_data(test_dataset, "test")
+    process_and_save_data(train_dataset, "train", setup_number=1)
+    process_and_save_data(test_dataset, "test", setup_number=1)
+
+    image_list, landmarks_list, emotion_list = read_data(training_data_path, setup_number=2)
+    train_dataset, test_dataset = split_data(image_list, landmarks_list, emotion_list)
+    process_and_save_data(train_dataset, "train", setup_number=2)
+    process_and_save_data(test_dataset, "test", setup_number=2)
 
 
 if __name__ == "__main__":
