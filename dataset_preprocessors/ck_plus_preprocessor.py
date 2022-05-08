@@ -1,10 +1,10 @@
 import cv2
 import os
 import pandas as pd
-from sklearn import datasets
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
+import random
 
 global haar_xml_path
 global haar_cascade_classifier
@@ -129,6 +129,8 @@ def read_data(training_data_path, setup_number):
 def split_data(image_list, landmarks_list, emotion_list, test_ratio=0.2):
     image_list, landmarks_list, emotion_list = np.asarray(image_list), np.asarray(landmarks_list), np.asarray(emotion_list)
     shuffle_ids = np.arange(len(image_list))
+    np.random.seed(0)
+    random.seed(0)
     np.random.shuffle(shuffle_ids)
     image_list, landmarks_list, emotion_list = image_list[shuffle_ids], landmarks_list[shuffle_ids], emotion_list[shuffle_ids]
     dataset_length = len(image_list)
