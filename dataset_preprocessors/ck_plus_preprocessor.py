@@ -148,7 +148,7 @@ def split_data(image_list, landmarks_list, emotion_list, test_ratio=0.2):
 def process_and_save_data(dataset, data_type, setup_number):
     print("# Preprocessing operations on the", data_type, "data is started!")
     image_list, landmarks_list, emotion_list = dataset["images"], dataset["landmarks"], dataset["emotions"]
-    zfill_length = len(str(len(dataset)))
+    zfill_length = len(str(len(image_list)))
     dataset_dir = os.path.join(os.path.dirname( __file__ ), "..", "datasets", "ck_plus", f"setup_{setup_number}")
     processed_data_dir = os.path.join(dataset_dir, "processed", data_type)
     image_processed_dir = os.path.join(processed_data_dir, "images")

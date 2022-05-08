@@ -27,6 +27,10 @@ def main():
     parser.add_argument('--model_name', type=str, default="sdm_landmark_regressor_r5_p32_s10_pca0.98", help='Name of the model in the saved models\' directory.')
     args = parser.parse_args()
 
+    # python evaluate_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --output_dir ./output --model_dir ./saved_models --model_name sdm_landmark_regressor_r5_p32_s10_pca0.98
+    # python evaluate_landmark_detector.py --dataset ck_plus_setup_1 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models --model_name sdm_landmark_regressor_r5_p32_s10_pca0.98
+    # python evaluate_landmark_detector.py --dataset ck_plus_setup_2 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models --model_name sdm_landmark_regressor_r5_p32_s10_pca0.98
+
     model_output_dir = os.path.join(args.output_dir, args.dataset, args.model_name)
     os.makedirs(model_output_dir,exist_ok=True)
     model_load_path= os.path.join(args.model_dir, args.dataset, f"{args.model_name}.model")
