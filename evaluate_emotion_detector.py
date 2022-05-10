@@ -34,8 +34,13 @@ def main():
 
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_svm_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_random_forest_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_knn_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_logistic_regressor_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_svm_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_random_forest_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_knn_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_logistic_regressor_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
     
     model_output_dir = os.path.join(args.output_dir, args.dataset, args.model_name)
     os.makedirs(model_output_dir,exist_ok=True)

@@ -29,14 +29,17 @@ def main():
     parser.add_argument('--pca_explained_variance', type=float, default=0.98, help='Explained variance of PCA components of the HOG descriptors used for training the regressor models.')
     parser.add_argument('--model_dir', type=str, default="./saved_models", help='Where the trained models will be loaded and saved.')
     parser.add_argument('--model_name', type=str, default="sdm_landmark_regressor_r5_p32_s10_pca0.98", help='Name of the landmark predictor model in the saved models\' directory.')
-    
+    args = parser.parse_args()
 
     # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier svm --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier random_forest --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier knn --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier logistic_regressor --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    
     # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier svm --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier random_forest --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
-
-    args = parser.parse_args()
+    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier knn --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier logistic_regressor --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
 
     train_data_dir = os.path.join(args.dataset_dir, "train")
     images_dir = os.path.join(train_data_dir, "images")
