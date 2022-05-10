@@ -13,20 +13,28 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--camera_id', type=int, default=0, help='Camera input id.')
-    parser.add_argument('--dataset', type=str, default="ck_plus_setup_1", help='Name of the dataset.')
+    parser.add_argument('--dataset', type=str, default="ck_plus_setup_2", help='Name of the dataset.')
     parser.add_argument('--model_dir', type=str, default="./saved_models", help='Where the trained models will be loaded.')
-    parser.add_argument('--model_name', type=str, default="emotion_detector_svm_pca0.98", help='Name of the emotion detector model in the saved models\' directory.')
+    parser.add_argument('--model_name', type=str, default="emotion_detector_logistic_regressor_pca0.5", help='Name of the emotion detector model in the saved models\' directory.')
     args = parser.parse_args()
 
     # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_svm_pca0.98
-    # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_random_forest_pca0.98
+    # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_decision_tree_pca0.98
     # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_knn_pca0.98
     # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.98
+    # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_svm_pca0.5
+    # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_decision_tree_pca0.5
+    # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_knn_pca0.5
+    # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.5
 
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_svm_pca0.98
-    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_random_forest_pca0.98
+    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_decision_tre_pca0.98
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_knn_pca0.98
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.98
+    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_svm_pca0.5
+    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_decision_tre_pca0.5
+    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_knn_pca0.5
+    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.5
 
 
 

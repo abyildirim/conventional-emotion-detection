@@ -32,14 +32,22 @@ def main():
     args = parser.parse_args()
 
     # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier svm --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
-    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier random_forest --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier decision_tree --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier knn --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier logistic_regressor --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier svm --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
+    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier decision_tree --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
+    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier knn --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
+    # python train_emotion_detector.py --dataset ck_plus_setup_1 --classifier logistic_regressor --dataset_dir ./datasets/ck_plus/setup_1/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
     
     # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier svm --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
-    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier random_forest --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier decision_tree --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier knn --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier logistic_regressor --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier svm --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
+    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier decision_tree --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
+    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier knn --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
+    # python train_emotion_detector.py --dataset ck_plus_setup_2 --classifier logistic_regressor --dataset_dir ./datasets/ck_plus/setup_2/processed --model_save_dir ./saved_models --pca_explained_variance 0.5
 
     train_data_dir = os.path.join(args.dataset_dir, "train")
     images_dir = os.path.join(train_data_dir, "images")

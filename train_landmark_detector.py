@@ -30,9 +30,27 @@ def main():
     parser.add_argument('--model_save_dir', type=str, default="./saved_models", help='Where the trained model will be saved.')
     parser.add_argument('--pca_explained_variance', type=float, default=0.98, help='Explained variance of PCA components of the SIFT descriptors used for training the regressor models.')
     
+    # python train_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --num_regressors 1 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --num_regressors 1 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --num_regressors 5 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --num_regressors 5 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --num_regressors 5 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.90
+    # python train_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --num_regressors 10 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset lfpw --dataset_dir ./datasets/lfpw/processed --num_regressors 10 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+
+    # python train_landmark_detector.py --dataset ck_plus_setup_1 --dataset_dir ./datasets/ck_plus/setup_1/processed --num_regressors 1 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_1 --dataset_dir ./datasets/ck_plus/setup_1/processed --num_regressors 1 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_1 --dataset_dir ./datasets/ck_plus/setup_1/processed --num_regressors 5 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_landmark_detector.py --dataset ck_plus_setup_1 --dataset_dir ./datasets/ck_plus/setup_1/processed --num_regressors 5 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_1 --dataset_dir ./datasets/ck_plus/setup_1/processed --num_regressors 10 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_1 --dataset_dir ./datasets/ck_plus/setup_1/processed --num_regressors 10 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+
+    # python train_landmark_detector.py --dataset ck_plus_setup_2 --dataset_dir ./datasets/ck_plus/setup_2/processed --num_regressors 1 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_2 --dataset_dir ./datasets/ck_plus/setup_2/processed --num_regressors 1 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_2 --dataset_dir ./datasets/ck_plus/setup_2/processed --num_regressors 5 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
     # python train_landmark_detector.py --dataset ck_plus_setup_2 --dataset_dir ./datasets/ck_plus/setup_2/processed --num_regressors 5 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_2 --dataset_dir ./datasets/ck_plus/setup_2/processed --num_regressors 10 --num_initial_samples 1 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
+    # python train_landmark_detector.py --dataset ck_plus_setup_2 --dataset_dir ./datasets/ck_plus/setup_2/processed --num_regressors 10 --num_initial_samples 10 --sift_patch_size 32 --model_save_dir ./saved_models --pca_explained_variance 0.98
 
     args = parser.parse_args()
 

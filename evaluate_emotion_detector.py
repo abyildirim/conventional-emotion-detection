@@ -11,6 +11,7 @@ from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import seaborn as sn
 import matplotlib.pyplot as plt
 from utils.triangular_warper import triangular_warp
+from sklearn.preprocessing import normalize
 
 
 def get_images(images_dir):
@@ -33,14 +34,22 @@ def main():
     args = parser.parse_args()
 
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_svm_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
-    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_random_forest_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_decision_tree_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_knn_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_logistic_regressor_pca0.98 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_svm_pca0.5 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_decision_tree_pca0.5 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_knn_pca0.5 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_1 --model_name emotion_detector_logistic_regressor_pca0.5 --dataset_dir ./datasets/ck_plus/setup_1/processed --output_dir ./output --model_dir ./saved_models
 
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_svm_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
-    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_random_forest_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_decision_tree_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_knn_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
     # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_logistic_regressor_pca0.98 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_svm_pca0.5 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_decision_tree_pca0.5 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_knn_pca0.5 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
+    # python evaluate_emotion_detector.py --dataset ck_plus_setup_2 --model_name emotion_detector_logistic_regressor_pca0.5 --dataset_dir ./datasets/ck_plus/setup_2/processed --output_dir ./output --model_dir ./saved_models
     
     model_output_dir = os.path.join(args.output_dir, args.dataset, args.model_name)
     os.makedirs(model_output_dir,exist_ok=True)
@@ -84,15 +93,11 @@ def main():
     accuracy = accuracy_score(real_emotions, predicted_emotions)
     f1 = f1_score(real_emotions, predicted_emotions, average="weighted")
 
-    eval_result_output_path = os.path.join(model_output_dir, f"eval_results.txt")
-    eval_file = open(eval_result_output_path, "w")
-    eval_file.writelines([
-        f"Accuracy: {accuracy}\n", 
-        f"F1 Score: {f1}\n"])
-    eval_file.close()
-
     labels = sorted(np.unique(np.concatenate((real_emotions, predicted_emotions))))
     cm = confusion_matrix(real_emotions, predicted_emotions,labels=labels)
+
+    # Normalizing the confusion matrix
+    cm = normalize(cm, axis=1, norm='l1')
 
     df_cm = pd.DataFrame(cm, labels, labels)
     plt.figure(figsize=(10,7))
@@ -100,6 +105,17 @@ def main():
     sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})
     confusion_matrix_output_path = os.path.join(model_output_dir, f"confusion_matrix.png")
     plt.savefig(confusion_matrix_output_path)
+
+    class_acccuracies = cm.diagonal()/cm.sum(axis=1)
+
+    eval_result_output_path = os.path.join(model_output_dir, f"eval_results.txt")
+    eval_file = open(eval_result_output_path, "w")
+    lines = [f"Overall Accuracy: {accuracy}\n", f"F1 Score: {f1}\n", f"Mean Class Accuracy: {class_acccuracies.mean()}\n"]
+    for label, class_accuracy in zip(labels, class_acccuracies):
+        lines.append(f"Accuracy of {label}: {class_accuracy}\n")
+    eval_file.writelines(lines)
+        
+    eval_file.close()
 
     for index_id, (image, normalized_image, real_emotion, predicted_emotion) in tqdm(enumerate(zip(images, warped_images, real_emotions, predicted_emotions)),desc=f'Predicting the emotions',total=len(images)):
         height, width = image.shape

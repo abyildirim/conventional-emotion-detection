@@ -1,5 +1,5 @@
 from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from skimage.feature import hog
@@ -12,11 +12,11 @@ import numpy as np
 class EmotionDetector:
     def __init__(self, classifier_type, landmark_detector, pca_explained_variance):
         if classifier_type == "svm":
-            self.classifier = SVC(decision_function_shape='ovo', C=0.8, kernel="sigmoid")
-        elif classifier_type == "random_forest":
-            self.classifier = RandomForestClassifier(n_estimators=10, max_depth=20, random_state=0)
+            self.classifier = SVC(decision_function_shape='ovo', C=0.8, kernel="linear", class_weight="balanced")
+        elif classifier_type == "decision_tree":
+            self.classifier = DecisionTreeClassifier(min_samples_split=8, random_state=0, class_weight="balanced")
         elif classifier_type == "knn":
-            self.classifier = KNeighborsClassifier(n_neighbors=10, weights="distance")
+            self.classifier = KNeighborsClassifier(n_neighbors=3, weights="distance")
         elif classifier_type == "logistic_regressor":
             self.classifier = LogisticRegression(multi_class='multinomial', random_state=0, C=0.8, class_weight="balanced")
         else:
