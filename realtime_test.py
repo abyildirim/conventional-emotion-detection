@@ -36,8 +36,6 @@ def main():
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_knn_pca0.5
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.5
 
-
-
     checkpoint_dir = os.path.join(args.model_dir, args.dataset, f"{args.model_name}.model")
 
     with open(checkpoint_dir, 'rb') as model_file:

@@ -60,7 +60,6 @@ def main():
     images = get_images(images_dir)
     df_emotions = pd.read_csv(emotions_path, index_col=0)
 
-
     print("Emotion detector training is started.")
     emotion_detector = EmotionDetector(args.classifier, landmark_detector, args.pca_explained_variance)
     emotion_detector.fit(images, df_emotions)
