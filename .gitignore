@@ -129,9 +129,14 @@ dmypy.json
 .pyre/
 
 # Additional
-output/
-datasets/
-saved_models/
 /demo.py
-!saved_models/ck_plus_setup_2/emotion_detector_logistic_regressor_pca0.98.model
 
+output/
+
+datasets/
+
+saved_models/*
+!saved_models/ck_plus_setup_2/
+
+saved_models/ck_plus_setup_2/*
+!saved_models/ck_plus_setup_2/emotion_detector_logistic_regressor_pca0.98.model

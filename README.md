@@ -1,8 +1,12 @@
 # Conventional Emotion Detection
 The aim of this project is to detect the emotion of a person from a given visual input by using conventional computer vision methods.
 
+## Team Members
+* Ahmet Burak Yıldırım
+* Maria Raluca Duminică
+
 ## Emotion Detection Pipeline
-1. **Facial Feature Point Detection**
+1. Facial Feature Point Detection
     * Preprocessing: Viola-Jones face detection + resizing (256x256)
     * [Regression-based Supervised Descent Method (SDM)](https://www.ri.cmu.edu/pub_files/2013/5/main.pdf)
 
@@ -10,7 +14,7 @@ The aim of this project is to detect the emotion of a person from a given visual
 
     ![SDM](/images/sdm.png)
 
-2. **Appearance Processing**
+2. Appearance Processing
     * Image normalization: Triangular warping
     * HOG descriptors’ extraction
 
@@ -18,7 +22,7 @@ The aim of this project is to detect the emotion of a person from a given visual
 
     ![Appearance Model](/images/appearance_model.png)
 
-3. **Emotion Detection**
+3. Emotion Detection
     * Features: HOG descriptors + landmarks
     * Classifiers
         * Logistic Regression
@@ -30,13 +34,7 @@ The aim of this project is to detect the emotion of a person from a given visual
 
     ![Emotion Detection](/images/emotion_detection.png)
 
-## Team Members
-* Ahmet Burak Yıldırım
-* Maria Raluca Duminică
-
-
 # Installation
-
 
 Python 3.8 is used in the experiments.
 
