@@ -28,11 +28,11 @@ def main():
     # python realtime_test.py --dataset ck_plus_setup_1 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.5
 
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_svm_pca0.98
-    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_decision_tre_pca0.98
+    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_decision_tree_pca0.98
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_knn_pca0.98
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.98
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_svm_pca0.5
-    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_decision_tre_pca0.5
+    # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_decision_tree_pca0.5
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_knn_pca0.5
     # python realtime_test.py --dataset ck_plus_setup_2 --model_dir ./saved_models --model_name emotion_detector_logistic_regressor_pca0.5
 
