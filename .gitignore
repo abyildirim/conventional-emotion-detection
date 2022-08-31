@@ -133,3 +133,5 @@ output/
 datasets/
 saved_models/
 /demo.py
+!saved_models/ck_plus_setup_2/emotion_detector_logistic_regressor_pca0.98.model
+
